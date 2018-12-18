@@ -6,25 +6,24 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 
-import interfaces.ChatServerInterface;
-
-
-public class ChatClient {
+public class Client {
 	
+
 	public static void main(String[] args) throws NotBoundException,RemoteException, MalformedURLException {
 		
 		Scanner scanner  =  new Scanner(System.in);
 		
-		ChatServerInterface name = (ChatServerInterface) Naming.lookup("//localhost:1111/ChatServerInterface");
+		ChatProtocol name = (ChatProtocol) Naming.lookup("//localhost:1111/ChatProtocol");
 		System.out.println("Client is connected to Server \n");
-		System.out.println("Gib deinen Namen ein:");
+		System.out.println("Gib deinen Namen ein: ");
 		
 		String user;
 		
 		user = scanner.next();
-		System.out.println("Server:" + name.sayName(user) );
+		System.out.println(name.sayName(user) );
 		
 	   
 	  }
+
 
 }

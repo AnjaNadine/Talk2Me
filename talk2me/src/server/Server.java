@@ -4,18 +4,28 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
-import interfaces.ChatServerImplementation;
+import client.ChatProtocol;
 
+public class Server extends UnicastRemoteObject implements ChatProtocol {
+	
+	public Server() throws RemoteException {
+	}
 
-public class ChatServer {
+	private static final long serialVersionUID = 1L;
+
+	@Override
+	public String sayName(String user) throws RemoteException {
+		return "Welcome to Talk2Me : " + user;
+	}
 	
 	public static void main(String[] args) throws RemoteException,NotBoundException
     {
         try
         {
             Registry r = LocateRegistry.createRegistry(1111);
-            r.rebind("ChatServerInterface", new ChatServerImplementation());
+            r.rebind("ChatProtocol", new Server());
             System.out.println("Server is running");
         }
         catch(Exception e)
@@ -23,6 +33,6 @@ public class ChatServer {
                     System.out.println(e);
                 }
     }
-		
 	
+   
 }
